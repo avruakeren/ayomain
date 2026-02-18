@@ -7,45 +7,46 @@
     <link rel="stylesheet" href="food.css" />
   </head>
   <body>
-    <div id="foodquestion">
-      <b>kemana?</b>
-    </div>
+    <form id="placeForm">
+      <div id="foodquestion">
+        <b>kemana?</b>
+      </div>
 
-    <div class="food-selection">
-      <div class="food-item">
-        <img src="perpus.jpg" alt="perpus" />
-        <label
-          ><input
-            type="checkbox"
-            name="food"
-            value="perpus"
-          />
-          perpus</label
-        >
+      <div class="food-selection">
+        <div class="food-item">
+          <img src="perpus.jpg" alt="perpus" />
+          <label><input type="checkbox" name="food" value="perpus" /> perpus</label>
+        </div>
+        <div class="food-item">
+          <img src="kopken.png" alt="kopken" />
+          <label><input type="checkbox" name="food" value="kopi kenangan" /> kopi kenangan</label>
+        </div>
+        <div class="food-item">
+          <img src="temannongkrong.png" alt="temannongkrong" />
+          <label><input type="checkbox" name="food" value="teman nongkrong" /> teman nongkrong</label>
+        </div>
+        <div class="food-item">
+          <img src="gatau.jpg" alt="pasta" />
+          <label><input type="checkbox" name="food" value="gatau deh terserah gina" /> gatau deh terserah gina</label>
+        </div>
       </div>
-      <div class="food-item">
-        <img src="kopken.png" alt="kopken" />
-        <label
-          ><input type="checkbox" name="food" value="kopken" /> kopi kenangan</label
-        >
-      </div>
-      <div class="food-item">
-        <img src="temannongkrong.png" alt="temannongkrong" />
-        <label
-          ><input type="checkbox" name="food" value="temannongkrong" /> teman nongkrong</label
-        >
-      </div>
-      <div class="food-item">
-        <img src="gatau.jpg" alt="pasta" />
-        <label><input type="checkbox" name="food" value="gatau" /> gatau deh terserah gina</label>
-      </div>
-     
-      </div>
-    </div>
-    <button class="button" onclick="location.href='lastpage.html'">
-      lanjut
-    </button>
+
+      <button class="button" type="submit">lanjut</button>
+    </form>
+
+    <script>
+      document.getElementById("placeForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        var selectedPlaces = Array.from(
+          document.querySelectorAll('input[name="food"]:checked')
+        ).map(function (item) {
+          return item.value;
+        });
+
+        localStorage.setItem("selectedPlaces", JSON.stringify(selectedPlaces));
+        location.href = "lastpage.html";
+      });
+    </script>
   </body>
 </html>
-
-

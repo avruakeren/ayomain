@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inbox Jawaban</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(180deg, #0b1022, #1b2348);
+        color: #fff;
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        padding: 16px;
+      }
+
+      .card {
+        width: min(760px, 100%);
+        background: #151b35;
+        border-radius: 14px;
+        padding: 18px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+      }
+
+      h1 {
+        margin: 0 0 8px;
+        font-size: clamp(22px, 6vw, 32px);
+      }
+
+      .muted {
+        color: #b9c2f0;
+        margin-top: 0;
+      }
+
+      .item {
+        background: #0f142a;
+        border: 1px solid #2f3a70;
+        border-radius: 10px;
+        padding: 12px;
+        margin-top: 10px;
+      }
+
+      .item b {
+        color: #ffb7d5;
+      }
+
+      .empty {
+        margin-top: 14px;
+        padding: 12px;
+        border-radius: 10px;
+        background: #0f142a;
+      }
+
+      a {
+        color: #f7b2ff;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <h1>Inbox Jawaban 📬</h1>
+      <p class="muted">Data disimpan dari halaman terakhir. Paling baru ada di atas.</p>
+      <div id="content"></div>
+      <p class="muted"><a href="lastpage.html">← balik ke last page</a></p>
+    </main>
+
+    <script>
+      var content = document.getElementById("content");
+      var inboxItems = JSON.parse(localStorage.getItem("inboxSubmissions") || "[]");
+
+      if (!inboxItems.length) {
+        content.innerHTML = '<div class="empty">Belum ada data. Isi dulu dari alur date → tempat → last page.</div>';
+      } else {
+        content.innerHTML = inboxItems
+          .map(function (item, index) {
+            var placesText = (item.places || []).length ? item.places.join(", ") : "belum dipilih";
+            return (
+              '<article class="item">' +
+              "<p><b>#" +
+              (index + 1) +
+              "</b> • " +
+              new Date(item.createdAt).toLocaleString() +
+              "</p>" +
+              "<p>Tanggal: <b>" +
+              item.chosenDate +
+              "</b></p>" +
+              "<p>Tempat: <b>" +
+              placesText +
+              "</b></p>" +
+              "</article>"
+            );
+          })
+          .join("");
+      }
+    </script>
+  </body>
+</html>
